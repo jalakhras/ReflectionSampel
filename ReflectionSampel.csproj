@@ -4,6 +4,8 @@
     <OutputType>Exe</OutputType>
     <TargetFramework>net5.0</TargetFramework>
     <LangVersion>9.0</LangVersion>
+    <AssemblyName>ReflectionSample</AssemblyName>
+    <RootNamespace>ReflectionSample</RootNamespace>
   </PropertyGroup>
 
 </Project>

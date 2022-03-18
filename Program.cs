@@ -23,6 +23,18 @@ namespace ReflectionSample
             var peson1 = personConstructors[0].Invoke(null);
             var peson2 = personConstructors[1].Invoke(new object[] { "Jassar" });
             var peson3 = personConstructors[2].Invoke(new object[] { "Jassar",27 });
+
+            var peson4 = Activator.CreateInstance("ReflectionSample", "ReflectionSample.Person");
+            var peson5 = Activator.CreateInstance("ReflectionSample", "ReflectionSample.Person",true,BindingFlags.Instance | BindingFlags.Public,null,new object[] { "Jassar" },null,null);
+
+            var pesonTypeFrmString = Type.GetType("ReflectionSample.Person");
+            var peson6 = Activator.CreateInstance(pesonTypeFrmString, new object[] { "Jassar" });
+
+            var peson7= Activator.CreateInstance("ReflectionSample", "ReflectionSample.Person", true, BindingFlags.Instance | BindingFlags.NonPublic, null, new object[] { "Jassar",27 }, null, null);
+
+
+            var assembly = Assembly.GetExecutingAssembly();
+            var peson8 = assembly.CreateInstance("ReflectionSample.Person");
             Console.ReadLine();
         }
 
