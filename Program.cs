@@ -42,6 +42,9 @@ namespace ReflectionSample
             var actualTypeFromConfiguration = Type.GetType(_typeFormConfiguration);
             var iTalkInstance = Activator.CreateInstance(actualTypeFromConfiguration) as ITalk;
             iTalkInstance.Talk("Hello Word");
+
+            dynamic dynamicITalkInstance = Activator.CreateInstance(actualTypeFromConfiguration) ;
+            dynamicITalkInstance.Talk("Hello Word");
             Console.ReadLine();
         }
 
