@@ -45,6 +45,24 @@ namespace ReflectionSample
 
             dynamic dynamicITalkInstance = Activator.CreateInstance(actualTypeFromConfiguration) ;
             dynamicITalkInstance.Talk("Hello Word");
+
+
+            var personForManipulation = Activator.CreateInstance("ReflectionSample", "ReflectionSample.Person", true, BindingFlags.Instance | BindingFlags.NonPublic, null, new object[] { "Jassar", 27 }, null, null).Unwrap();
+            var nameProperty = personForManipulation.GetType().GetProperty("Name");
+            nameProperty.SetValue(personForManipulation, "Jassar Mahmoud");
+
+            var ageFiled = personForManipulation.GetType().GetField("age");
+            ageFiled.SetValue(personForManipulation, 20);
+
+            var privateField =personForManipulation.GetType().GetField("_aPrivateField", BindingFlags.Instance | BindingFlags.NonPublic);
+          
+            privateField.SetValue(personForManipulation, "update private field value");
+            Console.WriteLine(personForManipulation);
+
+            personForManipulation.GetType().InvokeMember("Name", BindingFlags.Instance | BindingFlags.Public | BindingFlags.SetProperty, null, personForManipulation, new[] { "jaso" });
+            personForManipulation.GetType().InvokeMember("_aPrivateField", BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.SetField, null, personForManipulation, new[] { "sacand update for private value" });
+            Console.WriteLine(personForManipulation);
+
             Console.ReadLine();
         }
 
