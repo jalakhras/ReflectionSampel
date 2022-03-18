@@ -5,8 +5,10 @@ namespace ReflectionSample
 {
     class Program
     {
+        public static string _typeFormConfiguration = "ReflectionSample.Person";
         static void Main(string[] args)
         {
+
 
             var personType = typeof(Person);
             var personConstructors = personType.GetConstructors(BindingFlags.Instance | BindingFlags.Public| BindingFlags.NonPublic);
@@ -35,6 +37,11 @@ namespace ReflectionSample
 
             var assembly = Assembly.GetExecutingAssembly();
             var peson8 = assembly.CreateInstance("ReflectionSample.Person");
+
+            //Create a new instance of a configured type
+            var actualTypeFromConfiguration = Type.GetType(_typeFormConfiguration);
+            var iTalkInstance = Activator.CreateInstance(actualTypeFromConfiguration) as ITalk;
+            iTalkInstance.Talk("Hello Word");
             Console.ReadLine();
         }
 
