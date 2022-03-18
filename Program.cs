@@ -8,6 +8,21 @@ namespace ReflectionSample
         static void Main(string[] args)
         {
 
+            var personType = typeof(Person);
+            var personConstructors = personType.GetConstructors(BindingFlags.Instance | BindingFlags.Public| BindingFlags.NonPublic);
+            foreach (var personConstructor in personConstructors)
+            {
+                Console.WriteLine(personConstructor);
+
+            }
+
+            var privatePesonCostructor = personType.GetConstructor(BindingFlags.Instance | BindingFlags.NonPublic, null, new Type[] { typeof(string), typeof(int) }, null);
+            Console.WriteLine(privatePesonCostructor);
+
+
+            var peson1 = personConstructors[0].Invoke(null);
+            var peson2 = personConstructors[1].Invoke(new object[] { "Jassar" });
+            var peson3 = personConstructors[2].Invoke(new object[] { "Jassar",27 });
             Console.ReadLine();
         }
 
