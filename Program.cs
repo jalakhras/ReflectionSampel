@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Configuration;
+using ReflectionMagic;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
@@ -14,6 +15,20 @@ namespace ReflectionSample
         private static object _warningService;
         private static List<object> _warningServiceParameterValues;
         private static void Main(string[] args)
+        {
+            var person = new Person("Kevin");
+
+            var privateField = person.GetType().GetField("_aPrivateField",
+                BindingFlags.Instance | BindingFlags.NonPublic);
+            privateField.SetValue(person, "New private field value");
+
+            person.AsDynamic()._aPrivateField = "Updated value via ReflectionMagic";
+            //person.AsDynamic().MyMethod()...
+            //person.AsDynamic().MyProperty = ...
+            Console.ReadLine();
+        }
+
+        public  void Generics()
         {
             var myList = new List<Person>();
             Console.WriteLine(myList.GetType().Name);
@@ -60,7 +75,6 @@ namespace ReflectionSample
             var iocContainer = new IoCContainer();
             iocContainer.Register<IWaterService, TapWaterService>();
             var waterService = iocContainer.Resolve<IWaterService>();
-            Console.ReadLine();
         }
 
         public void NetworkMonitorExample()
