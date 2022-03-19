@@ -56,6 +56,10 @@ namespace ReflectionSample
             var genericMethodInfo = methodInfo.MakeGenericMethod(typeof(Employee));
             genericMethodInfo.Invoke(createdResult, new object[] { new Employee() });
 
+
+            var iocContainer = new IoCContainer();
+            iocContainer.Register<IWaterService, TapWaterService>();
+            var waterService = iocContainer.Resolve<IWaterService>();
             Console.ReadLine();
         }
 
