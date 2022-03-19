@@ -63,6 +63,12 @@ namespace ReflectionSample
             personForManipulation.GetType().InvokeMember("_aPrivateField", BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.SetField, null, personForManipulation, new[] { "sacand update for private value" });
             Console.WriteLine(personForManipulation);
 
+
+           var talkMethod =  personForManipulation.GetType().GetMethod("Talk");
+            talkMethod.Invoke(personForManipulation, new object[] { "something to say" });
+
+            personForManipulation.GetType().InvokeMember("Yell", BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.InvokeMethod, null, personForManipulation, new object[] { "something to yell" });
+
             Console.ReadLine();
         }
 
