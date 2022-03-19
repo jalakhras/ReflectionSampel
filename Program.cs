@@ -15,13 +15,42 @@ namespace ReflectionSample
         private static List<object> _warningServiceParameterValues;
         private static void Main(string[] args)
         {
-            BootStrapFromConfiguration();
-            Console.WriteLine("Monitoring network... something went wrong.");
-            Warn();
+            var myList = new List<Person>();
+            Console.WriteLine(myList.GetType().Name);
 
+            Console.WriteLine(myList.GetType());
+
+            var myDictionary = new Dictionary<string, int>();
+            Console.WriteLine(myDictionary.GetType());
+            var dictionaryType = myDictionary.GetType();
+            foreach (var genericTypeArgument in dictionaryType.GenericTypeArguments)
+            {
+                Console.WriteLine(genericTypeArgument);
+            }
+            foreach (var genericArgument in dictionaryType.GetGenericArguments())
+            {
+                Console.WriteLine(genericArgument);
+            }
+            var openDictionaryType = typeof(Dictionary<,>);
+            foreach (var genericTypeArgument in openDictionaryType.GenericTypeArguments)
+            {
+                Console.WriteLine(genericTypeArgument);
+            }
+            foreach (var genericArgument in openDictionaryType.GetGenericArguments())
+            {
+                Console.WriteLine(genericArgument);
+            }
             Console.ReadLine();
         }
 
+        public void NetworkMonitorExample()
+        {
+            BootStrapFromConfiguration();
+
+            Console.WriteLine("Monitoring network... something went wrong.");
+
+            Warn();
+        }
         private static void Warn()
         {
             // first, create an instance of the service if it wasn't cached yet
